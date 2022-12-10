@@ -42,9 +42,9 @@ public class LinkedList<T> implements MyList<T>{
         if (position > length + 1) {
 
 
-            System.out.println(
-                    "Position Unavailable in LinkedList");
-            return;
+          throw new IndexOutOfBoundsException(
+                    "List index is out of bound");
+
         }
 
 
@@ -58,6 +58,8 @@ public class LinkedList<T> implements MyList<T>{
 
 
             first.next = temp;
+            temp.previous =
+            temp.next.previous = first;
 
             return;
         }
@@ -94,6 +96,7 @@ public class LinkedList<T> implements MyList<T>{
 
     @Override
     public boolean isEmpty() {
+        if(first == null)return true;
         return false;
     }
 
@@ -104,12 +107,19 @@ public class LinkedList<T> implements MyList<T>{
 
     @Override
     public int size() {
-        return 0;
+        return length;
     }
 
     @Override
     public int indexOf(T t) {
-        return 0;
+        ListNode<T> temp = first;
+        int index=0;
+        while(temp.next != null){
+            if(temp.getData() == t)return index ;
+            index++;
+        }
+
+        return -1;
     }
 
     @Override
