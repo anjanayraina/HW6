@@ -2,8 +2,8 @@ public class ListNode<T> {
 
     T data;
 
-    ListNode<T> next;
-    ListNode<T> previous;
+   private  ListNode<T> next;
+   private  ListNode<T> previous;
 
     public T getData() {
         return data;

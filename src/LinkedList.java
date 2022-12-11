@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class LinkedList<T> implements MyList<T>{
     private ListNode<T> first;
    private ListNode<T> last;
@@ -6,6 +8,30 @@ public class LinkedList<T> implements MyList<T>{
        first = null;
        last =  null;
    }
+
+    public ListNode<T> getFirst() {
+        return first;
+    }
+
+    public void setFirst(ListNode<T> first) {
+        this.first = first;
+    }
+
+    public ListNode<T> getLast() {
+        return last;
+    }
+
+    public void setLast(ListNode<T> last) {
+        this.last = last;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
 
     @Override
     public void clear() {
@@ -16,22 +42,36 @@ public class LinkedList<T> implements MyList<T>{
     @Override
     public void add(T data)
     {
+//
+//        ListNode<T> temp = new ListNode<>(data);
+//        if (this.last == null) {
+//            first = temp;
+//            length++;
+//            return ;
+//        }
+//
+//            ListNode<T> X = last;
+//
+//            while (X.getNext() != null) {
+//                X = X.getNext();
+//            }
+//
+//            X.setNext(temp);
+//            temp.setPrevious(X);
+//            temp.setNext(null);
 
-        ListNode<T> temp = new ListNode<>(data);
-        if (this.first == null) {
-            first = temp;
-            length++;
-            return ;
+
+        ListNode<T> newnode=new ListNode<T>(data);
+        if(last==null){
+            first=newnode;
+            last=newnode;
+            newnode.setNext(null);
+            newnode.setPrevious(null);
+        }else{
+            newnode.setPrevious(last);
+            last.setNext(newnode);
+            last=newnode;
         }
-
-            ListNode<T> X = first;
-
-            while (X.next != null) {
-                X = X.next;
-            }
-
-            X.next = temp;
-
         length++;
     }
 
@@ -39,49 +79,6 @@ public class LinkedList<T> implements MyList<T>{
     public void add(int position, T data)
     {
 
-        if (position > length + 1) {
-
-
-          throw new IndexOutOfBoundsException(
-                    "List index is out of bound");
-
-        }
-
-
-        if (position == 1) {
-
-
-            ListNode<T> temp = first;
-
-
-            first = new ListNode<T>(data);
-
-
-            first.next = temp;
-            temp.previous =
-            temp.next.previous = first;
-
-            return;
-        }
-
-
-        ListNode<T> temp = first;
-
-
-        ListNode<T> prev = new ListNode<T>(null);
-
-        while (position - 1 > 0) {
-
-            prev = temp;
-
-            temp = temp.next;
-
-            position--;
-        }
-
-        prev.next = new ListNode<T>(data);
-
-        prev.next.next = temp;
     }
 
     @Override
@@ -114,7 +111,7 @@ public class LinkedList<T> implements MyList<T>{
     public int indexOf(T t) {
         ListNode<T> temp = first;
         int index=0;
-        while(temp.next != null){
+        while(temp.getNext() != null){
             if(temp.getData() == t)return index ;
             index++;
         }
@@ -124,6 +121,13 @@ public class LinkedList<T> implements MyList<T>{
 
     @Override
     public boolean contains(T t) {
+        ListNode<T> temp = first;
+        int index=0;
+        while(temp.getNext() != null){
+            if(temp.getData() == t)return true ;
+            index++;
+        }
+
         return false;
     }
 }
